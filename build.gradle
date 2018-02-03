@@ -1,0 +1,44 @@
+group 'com.uit'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.testng/testng
+    testCompile group: 'org.testng', name: 'testng', version: '6.13.1'
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.8.1'
+
+
+}
+
+task firefoxTest(type:Test){
+    systemProperty "driver","gecko"
+    useTestNG() {
+        suites "testng.xml"
+    }
+}
+task chromeTest(type:Test){
+    systemProperty "driver","chrome"
+    useTestNG() {
+        suites "testng.xml"
+    }
+}
+task ieTest(type:Test){
+    systemProperty "driver","ie"
+    useTestNG() {
+        suites "testng.xml"
+    }
+}
+task edgeTest(type:Test){
+    systemProperty "driver","edge"
+    useTestNG() {
+        suites "testng.xml"
+    }
+}
