@@ -1,5 +1,9 @@
 package com.company.Pages;
 
+
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -13,6 +17,7 @@ import java.net.URL;
  * Created by UITS-Admin on 21.01.2018.
  */
 public class BasePage {
+    protected Logger log = LogManager.getLogger(this.getClass());
     protected static WebDriver driver = DriverFactory.getDriver();
     public BasePage() {
         PageFactory.initElements(driver,this); //инициализация єлементов на странице

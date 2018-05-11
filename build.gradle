@@ -7,9 +7,25 @@ apply plugin: 'java'
 repositories {
     mavenCentral()
 }
+configurations {
+    agent
+}
 
+
+
+test.doFirst {
+    jvmArgs "-javaagent:${configurations.agent.singleFile}"
+}
+
+test {
+    useTestNG()
+}
 
 dependencies {
+    agent "org.aspectj:aspectjweaver:1.8.0"
+    testCompile "ru.yandex.qatools.allure:allure-testng-adaptor:1.4.0"
+    //compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.9.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.0'
     // https://mvnrepository.com/artifact/org.testng/testng
     testCompile group: 'org.testng', name: 'testng', version: '6.13.1'
     // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server
@@ -19,6 +35,7 @@ dependencies {
 }
 
 task firefoxTest(type:Test){
+    testLogging.showStandardStreams = true
     systemProperty "driver","gecko"
     useTestNG() {
         suites "testng.xml"
@@ -26,17 +43,20 @@ task firefoxTest(type:Test){
 }
 task chromeTest(type:Test){
     systemProperty "driver","chrome"
+    testLogging.showStandardStreams = true
     useTestNG() {
         suites "testng.xml"
     }
 }
 task ieTest(type:Test){
+    testLogging.showStandardStreams = true
     systemProperty "driver","ie"
     useTestNG() {
         suites "testng.xml"
     }
 }
 task edgeTest(type:Test){
+    testLogging.showStandardStreams = true
     systemProperty "driver","edge"
     useTestNG() {
         suites "testng.xml"
